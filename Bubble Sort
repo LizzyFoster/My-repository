@@ -1,0 +1,55 @@
+import turtle
+import random as r
+
+win = turtle.Screen()
+win.setup(720, 450)
+win.bgcolor("#2B2B2B")
+t = turtle.Turtle()
+t.speed(0)
+t.tracer(20, 0)
+t.ht()
+t.penup()
+t.left(90)
+t.color("floralwhite")
+
+x = -360
+y = -225
+values_x = []
+value_heights = []
+
+def BubbleSorter():
+    global value_heights
+    n = len(value_heights) 
+    for i in range(n): 
+        for e in range(0, n-i-1): 
+            if value_heights[e + 1] < value_heights[e] : 
+                value_heights[e + 1], value_heights[e] = value_heights[e], value_heights[e + 1] 
+
+def draw_line(y):
+  t.pendown()
+  t.forward(y)
+  t.penup()
+
+def random_height():
+  global x, y, values_x, value_heights
+  t.setposition(x, y)
+  y = r.randint(0,450)
+  values_x.append(x)
+  value_heights.append(y)
+  draw_line(y)
+  y = -225
+  x += 1
+
+for i in range(720):
+  random_height()
+t.setposition(-360, -225)
+x = -360
+t.clear()
+
+for i in range(50):
+  BubbleSorter()
+
+for i in range(720):
+  draw_line(value_heights[i])
+  t.setposition(x, -225)
+  x += 1
