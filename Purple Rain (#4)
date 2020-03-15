@@ -1,0 +1,46 @@
+import turtle
+import random as r
+
+win = turtle.Screen()
+win.setup(640,360)
+win.bgcolor("#E6E6FA")
+t = turtle.Turtle()
+t.ht()
+t.speed(0)
+win.tracer(40, 0)
+t.color("#8A2BE2")
+t.penup()
+t.left(90)
+
+rain_start_points_x = []
+rain_start_points_y = []
+
+def draw_line():
+  t.pendown()
+  t.forward(20)
+  t.penup()
+
+for i in range(10):
+  x = r.randint(-320, 320)
+  y = r.randint(-180, 180)
+  rain_start_points_x.append(x)
+  rain_start_points_y.append(y)
+  for i in range(2):
+    t.setposition(x, y)
+    draw_line()
+
+
+def move_rain():
+  global rain_start_points_x, rain_start_points_y
+  for i in range(len(rain_start_points_y)):
+    rain_start_points_y[i] -= 5
+
+for e in range(500):
+  t.clear()
+  move_rain()
+  for i in range(len(rain_start_points_y)):
+    if rain_start_points_y[i] <= -180:
+      rain_start_points_y[i] = 180
+      rain_start_points_x[i] = r.randint(-320, 320)
+    t.setposition(rain_start_points_x[i], rain_start_points_y[i])
+    draw_line()
